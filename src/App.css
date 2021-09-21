@@ -38,3 +38,33 @@
     transform: rotate(360deg);
   }
 }
+
+
+@media only screen and (min-width: 1224px) {
+  .card-columns-4 {
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+    -webkit-column-gap: 1.25rem;
+    -moz-column-gap: 1.25rem;
+    column-gap: 1.25rem;
+    orphans: 1;
+    widows: 1;
+  }
+  .card-columns-4 .card {
+    display: inline-block;
+    width: 80%;
+    margin: auto;
+  }
+}
+
+.one-image {
+  height: 200px;
+}
+
+.mx-auto {
+  margin-right: auto !important;
+}
+.mx-auto {
+  margin-left: auto !important;
+}
