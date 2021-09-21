@@ -1,12 +1,14 @@
 import React, { useState, useEffect} from "react";
 import axios from "axios";
 import './App.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Row, Col } from 'antd';
 
 const { Header, Content, Footer } = Layout;
 
 export default function App() {
   
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [fileUrl, setFileUrl] = useState('');
   const [allFiles,setAllFiles] = useState([]);
   //const [file,setFile] = useState(null);
@@ -19,7 +21,7 @@ export default function App() {
 
   const getFileType = (fileUrl) => {
     let partitions = fileUrl.split('.');
-    return partitions[partitions.length - 1];
+    return partitions[partitions.length - 1].toLowerCase();
  }
   
   useEffect(() => {
@@ -27,7 +29,8 @@ export default function App() {
     var files = [];
     var fileUrl = '';
     var promises = [];
-    
+    var toBreak = false;
+    /*
     axios.get(`https://random.dog/woof.json`)
       .then(res => { 
         //setIsLoaded(true); 
@@ -41,8 +44,11 @@ export default function App() {
         //fileUrl = res.data.url;
         //console.log(fileUrl);
         //console.log(getFileType(fileUrl));
+        */
+
     
-    /*
+    //console.log(files.length);
+    for (let i=0; i<8;i++) {
     promises.push(axios.get(`https://random.dog/woof.json`)
       .then(res => { 
         //setIsLoaded(true); 
@@ -55,53 +61,44 @@ export default function App() {
           files.push(fileUrl);
           console.log(files);
         }
-        
+        console.log(files.length);
         
       }, (error) => {
           //setIsLoaded(true);
-          //setError(error);
+          setError(error);
         }));
-      
-        Promise.all(files).then(() => {
-          setAllFiles(allFiles);
-       });
         
-      */
-
-
-      /*axios.get(fileUrl)
-        .then(res => { 
-          //setIsLoaded(true); 
-          setFile(res.data);
-
-          }, (error) => {
-          //setIsLoaded(true);
-          //setError(error);
-          });;
-        } */
-        
-        //console.log(fileUrl);
-        /*
-        if (fileTypes.includes(getFileType(fileUrl))) {
-          files.push(fileUrl);
-          //console.log(files);
-        } */
-        /*
-        Promise.all(files).then(() => {
-          setAllFiles(allFiles);
-          //console.log(allFiles);
+    }  
+       Promise.all(promises).then(() => {
+          setAllFiles(files);
+          setIsLoaded(true);
         });
-        */
-    
+          
   }, [setAllFiles]);
 
-  console.log(fileUrl);
+  console.log(allFiles);
+  //var 
+  if (allFiles.length < 8){
+    
+
+  }
+
+  //console.log(fileUrl);
 
   //console.log(allFiles);
 
-  //{imageTypes.includes(getFileType(allFiles[0])) && <img src={allFiles[0]} ></img>}
-        //{videoTypes.includes(getFileType(allFiles[0])) && <video src={allFiles[0]} ></video>}
-
+  /*{imageTypes.includes(getFileType(allFiles[0])) && <img src={allFiles[0]} style={{height: 300, width: 400}} ></img>}
+          {videoTypes.includes(getFileType(allFiles[0])) && 
+          <video width="320" height="240" controls >
+            <source src={allFiles[0]} />
+            Your browser does not support the video tag.
+          </video>} */
+  
+  if (error) {
+    return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+      } else {
   return (
     
     <Layout>
@@ -120,12 +117,19 @@ export default function App() {
         <Breadcrumb.Item>App</Breadcrumb.Item>
       </Breadcrumb>
       <div className="site-layout-background" style={{ padding: 24, minHeight: 380, backgroundColor: 'white' }}>
-          {imageTypes.includes(getFileType(fileUrl).toLowerCase()) && <img src={fileUrl} style={{height: 300, width: 400}} ></img>}
-          {videoTypes.includes(getFileType(fileUrl).toLowerCase()) && 
-          <video width="320" height="240" controls >
-            <source src={fileUrl} />
+      <div class="card-columns-4">
+        {allFiles.map(file => 
+          <div class="card">
+          { imageTypes.includes(getFileType(file)) && <img src={file} class="one-image mx-auto" ></img> }
+          { videoTypes.includes(getFileType(file)) && 
+          <video class="one-image mx-auto" controls >
+            <source src={file} />
             Your browser does not support the video tag.
-          </video>} 
+          </video> }
+          </div>
+        )}
+        </div>
+        
 
       </div>
     </Content>
@@ -134,4 +138,4 @@ export default function App() {
     
   );
 }
-
+}
