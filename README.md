@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This simple application displays random dogs from the api https://random.dog/woof.json.
 
 ## Installation
-You may need to run the following commands before run 'npm start':\
+You may need to run the following commands before running 'npm start':\
 npm install\
 npm install axios --save\
 npm install antd
