@@ -1,12 +1,12 @@
 # Getting Started with Random Dogs App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).\
 This simple application displays random dogs from the api https://random.dog/woof.json.
 
-## Install
-You may need to run the following commands before run 'npm start':
-npm install
-npm install axios --save
+## Installation
+You may need to run the following commands before run 'npm start':\
+npm install\
+npm install axios --save\
 npm install antd
 
 ## Available Scripts
